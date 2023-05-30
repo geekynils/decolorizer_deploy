@@ -1,1 +1,106 @@
-<!doctypehtml><html lang=en-us><head><meta charset=utf-8><meta content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"name=viewport><title>Decolorizer - Create coloring pictures from any image!</title><style>body{margin:0;background-color:#f4f0ec;font-family:Helvetica,sans-serif;font-size:11pt}a{text-decoration:none}.game{position:absolute;top:0;left:0;margin:0;border:0;width:100%;height:100%;overflow:hidden;display:block;image-rendering:optimizeSpeed;image-rendering:-moz-crisp-edges;image-rendering:-o-crisp-edges;image-rendering:-webkit-optimize-contrast;image-rendering:optimize-contrast;image-rendering:crisp-edges;image-rendering:pixelated;-ms-interpolation-mode:nearest-neighbor}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-FP5MEKPTWN"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-FP5MEKPTWN")</script></head><body><label for=fileInput>Load image:</label><input accept="image/png, image/jpeg, image/jpg"id=fileInput type=file><br><a href="mailto:decolorizer-art@gmail.com?subject=Feedback"id=emailLink>feedback / ideas</a><canvas class=game id=canvas oncontextmenu=event.preventDefault()></canvas><script>var Module={preRun:[],postRun:[],print:function(e){e=Array.prototype.slice.call(arguments).join(" "),console.log(e)},printErr:function(e){e=Array.prototype.slice.call(arguments).join(" "),console.error(e)},canvas:document.getElementById("canvas"),setStatus:function(e){console.log("status: "+e)},monitorRunDependencies:function(e){console.log("monitor run deps: "+e)}};function offerFileAsDownload(e,o){o=o||"application/octet-stream";let n=Module.FS.readFile(e);console.log(`Offering download of "${e}", with ${n.length} bytes...`);var t=document.createElement("a");t.download=e,t.href=URL.createObjectURL(new Blob([n],{type:o})),t.style.display="none",document.body.appendChild(t),t.click(),setTimeout((()=>{document.body.removeChild(t),URL.revokeObjectURL(t.href)}),2e3)}window.onerror=function(){console.log("onerror: "+event.message)}</script><script async src=decolorizer.js></script></body></html>
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title>Decolorizer - Create coloring pictures from any image!</title>
+    <style>
+        body { 
+            margin: 0; 
+            background-color: #f4f0ec; 
+            font-family: Helvetica, sans-serif;
+            font-size: 11pt;
+        }
+        a {
+            text-decoration: none;
+        }
+        .game {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            margin: 0px;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: block;
+            image-rendering: optimizeSpeed;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -o-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+            -ms-interpolation-mode: nearest-neighbor;
+        }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FP5MEKPTWN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FP5MEKPTWN');
+    </script>
+  </head>
+  <body>    
+    <label for="fileInput">Load image: </label>
+    <input type="file" id="fileInput" accept="image/png, image/jpeg, image/jpg"/>
+    <br/>
+    <a id="emailLink" href="mailto:decolorizer-art@gmail.com?subject=Feedback">feedback / ideas</a> 
+    <canvas class="game" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+    <script type='text/javascript'>
+      var Module = {
+        preRun: [],
+        postRun: [],
+        print: (function() {
+            return function(text) {
+                text = Array.prototype.slice.call(arguments).join(' ');
+                console.log(text);
+            };
+        })(),
+        printErr: function(text) {
+            text = Array.prototype.slice.call(arguments).join(' ');
+            console.error(text);
+        },
+        canvas: (function() {
+            var canvas = document.getElementById('canvas');
+            //canvas.addEventListener("webglcontextlost", function(e) { alert('FIXME: WebGL context lost, please reload the page'); e.preventDefault(); }, false);
+            return canvas;
+        })(),
+        setStatus: function(text) {
+            console.log("status: " + text);
+        },
+        monitorRunDependencies: function(left) {
+            console.log("monitor run deps: " + left);
+        }
+      };
+      window.onerror = function() {
+        console.log("onerror: " + event.message);
+      };
+      // taken from: https://stackoverflow.com/questions/54466870/emscripten-offer-to-download-save-a-generated-memfs-file
+      function offerFileAsDownload(filename, mime) {
+          mime = mime || "application/octet-stream";
+
+          let content = Module.FS.readFile(filename);
+          console.log(`Offering download of "${filename}", with ${content.length} bytes...`);
+
+          var a = document.createElement('a');
+          a.download = filename;
+          a.href = URL.createObjectURL(new Blob([content], {type: mime}));
+          a.style.display = 'none';
+
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+          }, 2000);
+        }
+
+    </script>
+    <script async type="text/javascript" src="decolorizer.js"></script>
+  </body>
+</html>
+
+
